@@ -1,0 +1,326 @@
+<?xml version="1.0"?>
+<robot name="xevisai6">
+
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0.054336 0.117589 0.009945" rpy="0 0 0" />
+      <mass value="0.4297" />
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001" />
+    </inertial>
+    <visual>
+      <geometry><mesh filename="package://xevisai6/meshes/base_link.STL" /></geometry>
+    </visual>
+    <collision>
+      <geometry><mesh filename="package://xevisai6/meshes/base_link.STL" /></geometry>
+    </collision>
+  </link>
+
+  <link name="left_link">
+    <inertial>
+      <mass value="0.012231" />
+      <inertia ixx="6.92E-06" ixy="0" ixz="0" iyy="4E-06" iyz="0" izz="4E-06" />
+    </inertial>
+    <visual>
+      <geometry><mesh filename="package://xevisai6/meshes/left_link.STL" /></geometry>
+    </visual>
+    <collision>
+      <geometry><mesh filename="package://xevisai6/meshes/left_link.STL" /></geometry>
+    </collision>
+  </link>
+
+  <joint name="left_joint" type="continuous">
+    <origin xyz="-0.021 0.11799 0" rpy="1.5708 0 0" />
+    <parent link="base_link" />
+    <child link="left_link" />
+    <axis xyz="1 0 0" />
+  </joint>
+
+  <link name="right_link">
+    <inertial>
+      <mass value="0.012231" />
+      <inertia ixx="6.92E-06" ixy="0" ixz="0" iyy="4E-06" iyz="0" izz="4E-06" />
+    </inertial>
+    <visual>
+      <geometry><mesh filename="package://xevisai6/meshes/right_link.STL" /></geometry>
+    </visual>
+    <collision>
+      <geometry><mesh filename="package://xevisai6/meshes/right_link.STL" /></geometry>
+    </collision>
+  </link>
+
+  <joint name="right_joint" type="continuous">
+    <origin xyz="0.125 0.11799 0" rpy="1.5708 0 0" />
+    <parent link="base_link" />
+    <child link="right_link" />
+    <axis xyz="1 0 0" />
+  </joint>
+
+  <link name="noi_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.1" />
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://xevisai6/meshes/noi_link.STL" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://xevisai6/meshes/noi_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="noi_joint" type="fixed">
+    <origin xyz="0.054336 0.117985 0.06" rpy="0 0 -3.14159" />
+    <parent link="base_link" />
+    <child link="noi_link" />
+  </joint>
+
+  <link name="prismatic_link">
+    <inertial>
+      <mass value="0.01349" />
+      <inertia ixx="1.09E-06" ixy="0" ixz="0" iyy="1.78E-05" iyz="0" izz="1.78E-05" />
+    </inertial>
+    <visual>
+      <geometry><mesh filename="package://xevisai6/meshes/prismatic_link.STL" /></geometry>
+    </visual>
+    <collision>
+      <geometry><mesh filename="package://xevisai6/meshes/prismatic_link.STL" /></geometry>
+    </collision>
+  </link>
+
+  <joint name="prismatic_joint" type="prismatic">
+    <origin xyz="0.054336 0.117985 0.06" rpy="0 0 -3.14159" />
+    <parent link="base_link" />
+    <child link="prismatic_link" />
+    <axis xyz="0 0 1" />
+    <limit lower="0" upper="0.11" effort="10" velocity="10" />
+  </joint>
+
+  <link name="rotary_link">
+    <inertial>
+      <mass value="0.0009" />
+      <inertia ixx="2.45E-08" ixy="0" ixz="0" iyy="3.45E-08" iyz="0" izz="4.99E-08" />
+    </inertial>
+    <visual>
+      <geometry><mesh filename="package://xevisai6/meshes/rotary_link.STL" /></geometry>
+    </visual>
+    <collision>
+      <geometry><mesh filename="package://xevisai6/meshes/rotary_link.STL" /></geometry>
+    </collision>
+  </link>
+
+  <joint name="rotary_joint" type="revolute">
+    <origin xyz="0.099959 -0.002876 0.02" rpy="0 0 0" />
+    <parent link="prismatic_link" />
+    <child link="rotary_link" />
+    <axis xyz="0 0 1" />
+    <limit lower="0" upper="2" effort="10" velocity="10" />
+  </joint>
+
+  <link name="caster_wheel_rear">
+    <inertial>
+      <mass value="0.25"/> <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+    <collision>
+      <geometry><sphere radius="0.01"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="caster_wheel_rear_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_wheel_rear"/>
+    <origin xyz="0.054 0.0 -0.0103" rpy="0 0 0"/> 
+  </joint>
+
+  <link name="caster_wheel_front">
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+    <collision>
+      <geometry><sphere radius="0.01"/></geometry>
+    </collision>
+  </link>
+
+  <joint name="caster_wheel_front_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_wheel_front"/>
+    <origin xyz="0.054 0.23 -0.009" rpy="0 0 0"/> 
+  </joint>
+
+  <gazebo reference="caster_wheel_rear">
+    <mu1>0.0</mu1>
+    <mu2>0.0</mu2>
+    <kp>1000000.0</kp> <kd>100.0</kd>      <minDepth>0.001</minDepth> <material>Gazebo/Green</material>
+  </gazebo>
+
+  <gazebo reference="caster_wheel_front">
+    <mu1>0.0</mu1>
+    <mu2>0.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+    <minDepth>0.001</minDepth>
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <link name="lidar_link">
+    <inertial>
+      <origin xyz="-1.6458E-09 -1.0079E-11 -0.00859" rpy="0 0 0" />
+      <mass value="0.03802" />
+      <inertia ixx="7.6719E-06" ixy="1.9215E-15" ixz="1.3311E-13" iyy="1.9368E-05" iyz="-5.1403E-14" izz="2.5750E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://xevisai6/meshes/lidar_link.STL" />
+      </geometry>
+      <material name="lidar_color">
+        <color rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://xevisai6/meshes/lidar_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="lidar_joint" type="fixed">
+    <origin xyz="0.054336 0.177985 0.034" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="lidar_link" />
+  </joint>
+
+  <gazebo reference="lidar_link">
+    <material>Gazebo/DarkGrey</material>
+    <sensor name="lidar_sensor" type="ray">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>10</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>360</samples>
+            <resolution>1</resolution>
+            <min_angle>-3.14159</min_angle>
+            <max_angle>3.14159</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.15</min>
+          <max>12.0</max>
+          <resolution>0.01</resolution>
+        </range>
+      </ray>
+      <plugin name="gazebo_ros_lidar" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <remapping>~/out:=scan</remapping>
+        </ros>
+        <output_type>sensor_msgs/LaserScan</output_type>
+        <frame_name>lidar_link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <link name="camera_link">
+    <inertial>
+      <origin xyz="0.000248 -0.00965 0.000562" rpy="0 0 0" />
+      <mass value="0.003517" />
+      <inertia ixx="1.8220E-07" ixy="7.3691E-10" ixz="-7.3289E-11" iyy="3.1290E-07" iyz="1.6657E-09" izz="1.8234E-07" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://xevisai6/meshes/camera_link.STL" />
+      </geometry>
+      <material name="camera_color">
+        <color rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://xevisai6/meshes/camera_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="camera_joint" type="fixed">
+    <origin xyz="0.05405 0.051132 0.033" rpy="1.5708 0 0" />
+    <parent link="base_link" />
+    <child link="camera_link" />
+  </joint>
+
+  <gazebo reference="camera_link">
+    <material>Gazebo/Black</material>
+    <sensor name="camera_sensor" type="camera">
+      <pose>0 0 0 0 0 3.14159</pose>
+      <visualize>true</visualize>
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+      </camera>
+      <plugin name="gazebo_ros_camera" filename="libgazebo_ros_camera.so">
+        <ros>
+          <remapping>~/image_raw:=camera/image_raw</remapping>
+          <remapping>~/camera_info:=camera/camera_info</remapping>
+        </ros>
+        <frame_name>camera_link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <ros2_control name="GazeboSystem" type="system">
+    <hardware><plugin>gazebo_ros2_control/GazeboSystem</plugin></hardware>
+    <joint name="left_joint">
+      <command_interface name="velocity"><param name="min">-10</param><param name="max">10</param></command_interface>
+      <state_interface name="position"/><state_interface name="velocity"/>
+    </joint>
+    <joint name="right_joint">
+      <command_interface name="velocity"><param name="min">-10</param><param name="max">10</param></command_interface>
+      <state_interface name="position"/><state_interface name="velocity"/>
+    </joint>
+    <joint name="prismatic_joint">
+      <command_interface name="position"/><state_interface name="position"/><state_interface name="velocity"/>
+    </joint>
+    <joint name="rotary_joint">
+      <command_interface name="position"/><state_interface name="position"/><state_interface name="velocity"/>
+    </joint>
+  </ros2_control>
+
+  <gazebo>
+    <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+      <parameters>$(find xevisai6)/config/controllers.yaml</parameters>
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="left_link">
+    <mu1>1.0</mu1><mu2>1.0</mu2>
+    <kp>1000000.0</kp><kd>1.0</kd>
+  </gazebo>
+  <gazebo reference="right_link">
+    <mu1>1.0</mu1><mu2>1.0</mu2>
+    <kp>1000000.0</kp><kd>1.0</kd>
+  </gazebo>
+
+  <gazebo reference="caster_wheel_rear">
+    <mu1>0.0</mu1><mu2>0.0</mu2>
+  </gazebo>
+
+</robot>
