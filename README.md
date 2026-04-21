@@ -53,7 +53,7 @@ chmod +x ~/ros2_ws/src/xevisai6/xevisai6/teleop_node.py
 
 ##  Chạy Gazebo
 
-cd ~/ros2_ws && rm -rf build/ install/ log/ && colcon build --symlink-install OFF && source install/setup.bash && ros2 launch xevisai6 sim.launch.py
+cd ~/ros2_ws && rm -rf build/ install/ log/ && colcon build  && source install/setup.bash && ros2 launch xevisai6 sim.launch.py
 
 
 
